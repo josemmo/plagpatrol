@@ -1,0 +1,27 @@
+{
+  "name": "plagpatrol",
+  "version": "0.0.1",
+  "author": "José Miguel Moreno <josemmo@pm.me>",
+  "license": "MIT",
+  "scripts": {
+    "build": "webpack --mode=production",
+    "dev": "webpack --mode=development",
+    "server": "webpack-dev-server --mode=development"
+  },
+  "devDependencies": {
+    "base64-inline-loader": "^1.1.1",
+    "css-loader": "^1.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "jquery": "^3.3.1",
+    "mini-css-extract-plugin": "^0.4.3",
+    "node-sass": "^4.9.3",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "pdfjs-dist": "^2.0.489",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "uglifyjs-webpack-plugin": "^2.0.1",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.9"
+  }
+}

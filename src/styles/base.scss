@@ -1,0 +1,118 @@
+/* COMMON */
+body, html {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+body {
+  color: $primary-color;
+  background: $secondary-color;
+  font-family: system, -apple-system, system-ui, BlinkMacSystemFont,
+    "Helvetica Neue", "Segoe UI", "Ubuntu", "Fira Sans", sans-serif;
+  font-size: 14px;
+  cursor: default;
+}
+
+
+/* TOPBAR */
+$topbar-height: 50px;
+body > .topbar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: $topbar-height;
+  padding: 0 10px;
+  background: lighten($secondary-color, 10%);
+  border-bottom: solid 1px darken($secondary-color, 10%);
+  box-sizing: border-box;
+  z-index: 2;
+
+  .item {
+    display: inline-block;
+    margin: 9px 5px;
+    padding: 5px 8px 5px 28px;
+    color: $primary-color;
+    border: solid 1px;
+    background: $secondary-color no-repeat 8px center;
+    background-size: auto 50%;
+    border-radius: 6px;
+    font-size: 14px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &:not(span):hover {
+      background-color: darken($secondary-color, 10%);
+      cursor: pointer;
+    }
+
+    &.item-open {
+      background-image: url('../assets/open-icon.svg');
+    }
+    &.item-issues {
+      float: right;
+      background-image: url('../assets/issues-icon.svg');
+      display: none;
+
+      &.ok {
+        background-image: url('../assets/no-issues-icon.svg');
+      }
+    }
+    &.item-about {
+      background-image: url('../assets/about-icon.svg');
+    }
+  }
+}
+
+
+/* PAGINATION CONTAINER */
+body > .pagination {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: $topbar-height;
+  bottom: 0;
+
+  & > .page {
+    display: flex;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+
+    &:not(.visible) {
+      display: none !important;
+    }
+
+    &.centered {
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+  }
+}
+
+
+/* DOM LOADER */
+.dom-loader {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  pointer-events: none;
+  z-index: -999999;
+
+  & > * {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+}

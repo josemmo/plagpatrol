@@ -1,0 +1,22 @@
+.page[data-page="loading"] {
+  .lead {
+    width: 100%;
+  }
+
+  .progress {
+    position: relative;
+    width: 80%;
+    max-width: 600px;
+    height: 4px;
+    margin: 10px auto;
+    background: $primary-color;
+
+    & > div {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      background: $accent-color;
+    }
+  }
+}

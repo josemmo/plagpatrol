@@ -1,0 +1,15 @@
+.page[data-page="welcome"] {
+  .filepicker {
+    display: none;
+  }
+
+  .lead {
+    padding: 3em 6em;
+    cursor: pointer;
+    transition: transform 0.15s ease-in-out;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+}

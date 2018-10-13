@@ -1,0 +1,88 @@
+.page[data-page="viewer"] {
+
+  /* NAVIGATION */
+  .navigation {
+    flex: 0 0 auto;
+    width: 180px;
+    padding: 10px 0;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    z-index: 1;
+
+    .thumbnail {
+      display: table;
+      position: relative;
+      cursor: pointer;
+
+      canvas {
+        display: block;
+        width: 70%;
+        margin: 8px auto;
+      }
+      &.selected canvas {
+        outline: solid 4px $accent-color;
+      }
+
+      .counter {
+        display: flex;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 50px;
+        height: 50px;
+        background: rgba($danger-color, 0.9);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2em;
+        font-weight: bold;
+      }
+    }
+  }
+
+
+  /* PREVIEW */
+  .preview {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 1;
+
+    .page {
+      position: relative;
+      margin: 20px auto;
+      background: #fff;
+      box-shadow: 0 0 20px rgba(0,0,0,0.6);
+
+      & > canvas {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+      }
+
+      & > .flag {
+        position: absolute;
+        color: transparent;
+        background: rgba($danger-color, 0.8);
+        font-size: 10px;
+        line-height: 1.2em;
+        white-space: pre-line;
+        word-break: break-all;
+        overflow: hidden;
+        box-sizing: border-box;
+        z-index: 9;
+
+        &:hover {
+          color: #fff;
+          outline: 3px solid $secondary-color;
+          z-index: 99999;
+        }
+      }
+    }
+  }
+
+}
