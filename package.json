@@ -17,7 +17,7 @@
   "build": {
     "productName": "Plag Patrol",
     "appId": "tk.josemmo.plagpatrol",
-    "artifactName": "${productName}-setup-${version}.${ext}",
+    "artifactName": "${name}-setup-${os}-${arch}-${version}.${ext}",
     "directories": {
       "output": "build"
     },
