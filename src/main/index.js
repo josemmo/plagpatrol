@@ -1,4 +1,5 @@
 const {app, BrowserWindow} = require('electron')
+const {autoUpdater} = require('electron-updater')
 let win
 
 
@@ -21,7 +22,10 @@ function createWindow() {
 
 
 /* INITIALIZE APP */
-app.on('ready', createWindow)
+app.on('ready', () => {
+  autoUpdater.checkForUpdatesAndNotify()
+  createWindow()
+})
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') { // Keep app running when on MacOS
     app.quit()

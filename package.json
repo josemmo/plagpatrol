@@ -1,6 +1,7 @@
 {
   "name": "plagpatrol",
   "version": "0.0.1",
+  "description": "An app for detecting documents tampered to bypass plagiarism detectors",
   "author": "José Miguel Moreno <josemmo@pm.me>",
   "repository": "https://github.com/josemmo/plagpatrol",
   "license": "MIT",
@@ -45,13 +46,19 @@
       "allowToChangeInstallationDirectory": true
     },
     "mac": {
+      "category": "public.app-category.utilities",
       "icon": "build/icons/icon.icns"
     },
     "win": {
       "icon": "build/icons/icon.ico"
     },
     "linux": {
-      "icon": "build/icons"
+      "icon": "build/icons",
+      "target": [
+        "AppImage",
+        "deb",
+        "rpm"
+      ]
     }
   },
   "devDependencies": {
@@ -71,5 +78,8 @@
     "webpack": "^4.20.2",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.9"
+  },
+  "dependencies": {
+    "electron-updater": "^3.1.2"
   }
 }
