@@ -9,7 +9,7 @@ const APP_NAME = 'Plag Patrol'
 
 module.exports = {
   entry: {
-    app: './src/main.js'
+    app: './src/renderer/index.js'
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
