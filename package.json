@@ -43,7 +43,9 @@
     },
     "nsis": {
       "oneClick": false,
-      "allowToChangeInstallationDirectory": true
+      "allowToChangeInstallationDirectory": true,
+      "deleteAppDataOnUninstall": true,
+      "license": "LICENSE"
     },
     "mac": {
       "category": "public.app-category.utilities",
