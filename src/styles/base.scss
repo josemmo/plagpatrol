@@ -5,6 +5,7 @@ body, html {
   height: 100%;
   margin: 0;
   overflow: hidden;
+  user-select: none;
 }
 body {
   color: $primary-color;
@@ -96,6 +97,76 @@ body > .pagination {
       align-items: center;
       justify-content: center;
       text-align: center;
+    }
+  }
+}
+
+
+/* DIALOGS */
+.dialogs {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  opacity: 0;
+  display: none;
+  transition: opacity 0.2s ease-in-out;
+  z-index: 9999;
+
+  &.visible {
+    opacity: 1;
+  }
+
+  .dialog {
+    position: absolute;
+    left: 50%;
+    top: 100px;
+    width: 90%;
+    max-width: 500px;
+    color: $primary-color;
+    background: lighten($secondary-color, 10%);
+    border: solid 1px;
+    transform: translate(-50%, -200%);
+    border-radius: 4px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.7);
+    text-align: center;
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out;
+
+    &.visible {
+      transform: translate(-50%, 0);
+    }
+
+    .title {
+      padding: 6px;
+      background: $secondary-color;
+      border-bottom: solid 1px darken($secondary-color, 10%);
+    }
+
+    .body {
+      padding: 10px 6px;
+
+      .app-logo {
+        display: block;
+        width: 80px;
+        height: 80px;
+        margin: 10px auto;
+        background: url('../../build/icons/256x256.png') no-repeat center;
+        background-size: cover;
+      }
+      small {
+        font-size: 0.7em;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+        font-weight: bold;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
     }
   }
 }

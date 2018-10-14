@@ -4,6 +4,7 @@ var $ = require('jquery');
 $(function() {
 
   var viewer = require('./viewer.js');
+  var dialog = require('./dialog.js');
   var $welcomePage = $('.page[data-page="welcome"]');
   var $topbar = $('body > .topbar');
 
@@ -11,6 +12,7 @@ $(function() {
   /* DRAG AND DROP FILE */
   $('body').on('dragover', false).on('drop', function(e) {
     e.preventDefault();
+    if (dialog.isVisible()) dialog.close();
 
     // Get dragged file
     var file = null;
@@ -51,8 +53,12 @@ $(function() {
 
   /* ABOUT DIALOG */
   $topbar.find('.item-about').click(function() {
-    alert(APP_NAME + ' v' + APP_VERSION + '\n\n' +
-      'Source code is available at https://github.com/josemmo/plagpatrol');
+    dialog.show('About',
+      '<div class="app-logo"></div>' +
+      '<h1>' + APP_NAME + ' <small>v' + APP_VERSION + '</small></h1>' +
+      '<p>Created and mantained by <a href="https://github.com/josemmo/" target="_blank">@josemmo</a>.</p>' +
+      '<p>Source code is available under the MIT license at ' +
+      '<a href="https://github.com/josemmo/plagpatrol" target="_blank">https://github.com/josemmo/plagpatrol</a></p>');
   });
 
 });

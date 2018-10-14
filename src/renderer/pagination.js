@@ -9,6 +9,10 @@ function showPage(page) {
   $('.page[data-page="' + page + '"]').addClass('visible');
 }
 
+
+/******************************************************************************/
+
+
 module.exports = {
   showPage: showPage
 };

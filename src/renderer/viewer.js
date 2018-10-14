@@ -1,5 +1,6 @@
 var $ = require('jquery');
 var pdfjs = require('pdfjs-dist/webpack.js');
+var dialog = require('./dialog.js');
 var pagination = require('./pagination.js');
 
 // Declare global variables
@@ -72,7 +73,10 @@ function loadDocument(doc) {
       if (resizePreviewPages()) clearInterval(interval);
     }, 80);
   }).catch(function() {
-    alert('Selected file is not a valid PDF document');
+    dialog.show('Failed to load file',
+      '<p>Selected file is not a valid PDF document or is corrupted.</p>' +
+      '<p>Please make sure this app has <strong>read access</strong> to the ' +
+      'file and that it can be opened using a PDF reader.</p>');
     pagination.showPage('welcome');
   });
 }
