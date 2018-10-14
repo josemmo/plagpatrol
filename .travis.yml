@@ -29,9 +29,9 @@ script:
         -v ~/.cache/electron:/root/.cache/electron \
         -v ~/.cache/electron-builder:/root/.cache/electron-builder \
         electronuserland/builder:wine \
-        /bin/bash -c "yarn --link-duplicates --pure-lockfile && yarn build && ./node_modules/.bin/build --win"
+        /bin/bash -c "yarn --link-duplicates --pure-lockfile && yarn build:web && ./node_modules/.bin/electron-builder --linux --win -p onTagOrDraft"
     else
-      npm run build
+      npm run build:web && ./node_modules/.bin/electron-builder -p onTagOrDraft
     fi
 before_cache:
   - rm -rf $HOME/.cache/electron-builder/wine
@@ -43,3 +43,7 @@ deploy:
   local-dir: dist
   on:
     tags: true
+    condition: $TRAVIS_OS_NAME = linux
+
+notifications:
+  email: false
