@@ -15,7 +15,7 @@
     "start:desktop": "npm run build:web && electron ."
   },
   "build": {
-    "productName": "plagpatrol",
+    "productName": "Plag Patrol",
     "appId": "tk.josemmo.plagpatrol",
     "artifactName": "${productName}-setup-${version}.${ext}",
     "directories": {
