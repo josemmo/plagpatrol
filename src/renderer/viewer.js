@@ -133,10 +133,12 @@ function loadPage(pdf, pageNum) {
   return new Promise(function(resolve) {
     return pdf.getPage(pageNum).then(function(page) {
       return Promise.all([
+        Promise.resolve(page), // To pass parameters between promises
         renderThumbnail(page).then(notifyJobFinished),
-        renderPreview(page).then(notifyJobFinished),
-        analyzePage(page).then(notifyJobFinished)
+        renderPreview(page).then(notifyJobFinished)
       ]);
+    }).then(function(res) {
+      return analyzePage(res[0]).then(notifyJobFinished);
     }).then(resolve);
   });
 }
@@ -203,11 +205,15 @@ function analyzePage(page) {
       svg.setAttribute('data-page', page.pageIndex+1);
       $domLoader.append(svg);
       setTimeout(function() {
+        // Get page canvas context
+        var $canvas = $preview.find('[data-page="' + (page.pageIndex+1) + '"] canvas');
+        var ctx = $canvas.get(0).getContext('2d');
+
         // Analyze TSPAN elements from SVG renderer
         var flaggedNodes = [];
         $(svg).find('*').each(function() {
           if (this.localName !== 'tspan') return true;
-          analyzeTspan(this, flaggedNodes);
+          analyzeTspan(this, ctx, flaggedNodes);
         }).parent().remove();
 
         // Analyze annotations and resolve
@@ -224,18 +230,25 @@ function analyzePage(page) {
 /**
  * Analyze `tspan` element
  * @param {object} elem         TSPAN element
+ * @param {object} ctx          Canvas context from page
  * @param {array}  flaggedNodes Already flagged nodes
  */
-function analyzeTspan(elem, flaggedNodes) {
-  // Check color brightness
-  if (getColorBrightness(elem.getAttribute('fill')) > 200) {
-    console.log(elem.parentNode);
+function analyzeTspan(elem, ctx, flaggedNodes) {
+  var rect = elem.getBoundingClientRect();
+  if (rect.width == 0 || rect.height == 0) return;
+  var textLength = elem.innerHTML.replace(/[^a-zA-Z0-9]/g, '').length;
+
+  // Get background color
+  var fgBrightness = getColorBrightness(elem.getAttribute('fill'));
+  var bgBrightness = getColorBrightness(getDominantColor(ctx, rect));
+  var diffBrightness = Math.abs(bgBrightness - fgBrightness);
+  if ((diffBrightness < 50) && (textLength > 0)) {
+    console.log(elem.innerHTML, fgBrightness, bgBrightness, diffBrightness);
     flagElement(elem, 'Text is too bright to be read', flaggedNodes);
   }
 
   // Check font size
   var fontSize = elem.getAttribute('font-size');
-  var textLength = elem.innerHTML.replace(/[^a-zA-Z0-9]/g, '').length;
   if ((fontSize !== null) && (fontSize.replace('px', '') <= 4) && (textLength > 100)) {
     flagElement(elem, 'Text is too small to be read', flaggedNodes);
   }
@@ -267,7 +280,7 @@ function flagElement(elem, message, flaggedNodes) {
   var flagIndex = flaggedNodes.indexOf(elem.parentNode);
   if (flagIndex > -1) {
     var $flag = $container.find('.flag[data-flag=' + flagIndex + ']');
-    $flag.append(elem.innerHTML);
+    if ($flag.html().length < 6000) $flag.append(elem.innerHTML);
     if ($flag.attr('title').indexOf(message) < 0) {
       $flag.attr('title', $flag.attr('title') + '\n' + message);
     }
@@ -278,7 +291,7 @@ function flagElement(elem, message, flaggedNodes) {
   // Create new flag DOM element
   var rect = elem.getBoundingClientRect();
   $('<div class="flag" data-flag="' + flagIndex + '" />').css({
-    left: toPercent(rect.x, $svg.width()),
+    left: toPercent(rect.left, $svg.width()),
     top: toPercent(rect.top, $svg.height()),
     width: toPercent(rect.width, $svg.width()),
     height: toPercent(rect.height, $svg.height())
@@ -359,13 +372,39 @@ function toPercent(value, total) {
 
 
 /**
+ * Get dominant color
+ * @param  {CanvasRenderingContext2D} ctx  Canvas context
+ * @param  {DOMRect}                  rect Bounding rectangle
+ * @return {array}                         Dominant color (in RGB)
+ */
+function getDominantColor(ctx, rect) {
+  var freq = [{}, {}, {}], maxFreq = [-1, -1, -1], mode = [-1, -1, -1];
+
+  var data = ctx.getImageData(rect.x, rect.y, rect.width, rect.height).data;
+  for (var i=0; i<data.length; i+=4) {
+    for (var j=0; j<3; j++) {
+      freq[j][data[i+j]] = (freq[j][data[i+j]] || 0) + 1;
+      if (freq[j][data[i+j]] > maxFreq[j]) {
+        maxFreq[j] = freq[j][data[i+j]];
+        mode[j] = data[i+j];
+      }
+    }
+  }
+
+  return mode;
+}
+
+
+/**
  * Get color brightness
- * @param  {string} color RGB color string
- * @return {int}          Brightness (from 0 top 255)
+ * @param  {string|array} color RGB color
+ * @return {int}                Brightness (from 0 top 255)
  */
 function getColorBrightness(color) {
   if (color === null) color = 'rgb(0,0,0)';
-  color = color.replace(/rgb\((.+)\)/g, '$1').split(',');
+  if (typeof color == 'string') {
+    color = color.replace(/rgb\((.+)\)/g, '$1').split(',');
+  }
   return (299*color[0] + 587*color[1] + 114*color[2]) / 1000;
 }
 
