@@ -5,6 +5,7 @@ $(function() {
 
   var viewer = require('./viewer.js');
   var dialog = require('./dialog.js');
+  var headless = require('./headless.js');
   var $welcomePage = $('.page[data-page="welcome"]');
   var $topbar = $('body > .topbar');
 
@@ -60,5 +61,10 @@ $(function() {
       '<p>Source code is available under the MIT license at ' +
       '<a href="https://github.com/josemmo/plagpatrol" target="_blank">https://github.com/josemmo/plagpatrol</a></p>');
   });
+
+
+  /* HEADLESS OPERATION */
+  var filePath = headless.getPathToOpen();
+  if (filePath !== null) viewer.loadDocument(filePath);
 
 });

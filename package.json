@@ -10,7 +10,7 @@
     "build": "npm run build:web && npm run build:desktop",
     "build:web": "webpack --mode=production",
     "build:desktop": "electron-builder",
-    "start": "npm run start:web && npm run start:desktop",
+    "start": "npm run build:web && npm run start:desktop",
     "start:web": "webpack-dev-server --mode=development",
     "start:desktop": "electron . --open-dev-tools"
   },

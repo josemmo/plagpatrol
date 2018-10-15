@@ -1,5 +1,6 @@
-const {app, BrowserWindow} = require('electron')
+const {app, BrowserWindow, ipcMain} = require('electron')
 const {autoUpdater} = require('electron-updater')
+const fs = require('fs')
 let win
 
 
@@ -54,3 +55,22 @@ app.on('activate', () => {
     createWindow()
   }
 })
+
+
+/* HEADLESS OPERATION */
+ipcMain.on('synchronous-message', (e, arg) => {
+  if (arg == 'getPathToOpen') e.returnValue = getPathToOpen()
+})
+
+
+/**
+ * Get path of file to open
+ * @return {string|null} Path to open
+ */
+function getPathToOpen() {
+  for (const param of process.argv.slice(1)) {
+    if (param == '.' || param.indexOf('-') === 0) continue
+    if (fs.existsSync(param)) return param
+  }
+  return null
+}
