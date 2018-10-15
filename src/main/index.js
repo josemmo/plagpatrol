@@ -11,12 +11,30 @@ function createWindow() {
     width: 1000,
     height: 700,
     minWidth: 600,
-    minHeight: 500
+    minHeight: 500,
+    show: false
   })
   win.setMenu(null)
   win.loadFile('dist/index.html')
+
+  // Enable dev tools
+  for (const param of process.argv) {
+    if (param == '--open-dev-tools') {
+      win.webContents.openDevTools()
+      break
+    }
+  }
+
+  // Attach events
   win.on('closed', () => {
     win = null
+  })
+  win.once('ready-to-show', () => {
+    win.show()
+  })
+  win.webContents.on('new-window', (e, url) => {
+    e.preventDefault()
+    shell.openExternal(url)
   })
 }
 

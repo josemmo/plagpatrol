@@ -10,9 +10,9 @@
     "build": "npm run build:web && npm run build:desktop",
     "build:web": "webpack --mode=production",
     "build:desktop": "electron-builder",
-    "start": "npm run start:desktop",
+    "start": "npm run start:web && npm run start:desktop",
     "start:web": "webpack-dev-server --mode=development",
-    "start:desktop": "npm run build:web && electron ."
+    "start:desktop": "electron . --open-dev-tools"
   },
   "build": {
     "productName": "Plag Patrol",
