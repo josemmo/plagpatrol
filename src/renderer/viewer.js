@@ -2,6 +2,7 @@ var $ = require('jquery');
 var pdfjs = require('pdfjs-dist/webpack.js');
 var dialog = require('./dialog.js');
 var pagination = require('./pagination.js');
+var headless = require('./headless.js');
 
 // Declare global variables
 var $domLoader = $('.dom-loader');
@@ -66,6 +67,7 @@ function loadDocument(doc) {
     return Promise.all(pagePromises);
   }).then(function() {
     updateTotalFlagCounter();
+    notifyHeadless(true);
     pagination.showPage('viewer');
     $navigation.scrollTop(0);
     $preview.scrollTop(0);
@@ -73,6 +75,7 @@ function loadDocument(doc) {
       if (resizePreviewPages()) clearInterval(interval);
     }, 80);
   }).catch(function() {
+    notifyHeadless(false);
     dialog.show('Failed to load file',
       '<p>Selected file is not a valid PDF document or is corrupted.</p>' +
       '<p>Please make sure this app has <strong>read access</strong> to the ' +
@@ -415,10 +418,8 @@ function getColorBrightness(color) {
  */
 function updateFlagCounter(pageNum) {
   var count = $preview.find('[data-page=' + pageNum + '] .flag').length;
-  if (count > 0) {
-    $navigation.find('[data-page=' + pageNum + ']')
-      .append('<div class="counter">' + count + '</div>');
-  }
+  var $elem = $navigation.find('[data-page=' + pageNum + ']').data('count', count);
+  if (count > 0) $elem.append('<div class="counter">' + count + '</div>');
 }
 
 
@@ -428,8 +429,35 @@ function updateFlagCounter(pageNum) {
 function updateTotalFlagCounter() {
   var total = $preview.find('.flag').length;
   var totalText = (total == 1) ? '1 issue' : total + ' issues';
-  $topbar.find('.item-issues').html(totalText)
+  $topbar.find('.item-issues').html(totalText).data('count', total)
     .toggleClass('ok', (total == 0)).show();
+}
+
+
+/**
+ * Notify headless operator of result
+ * @param {boolean} success Success
+ */
+function notifyHeadless(success) {
+  if (!headless.isHeadless()) return;
+
+  // Prepare message
+  var res = {success: success};
+  if (success) {
+    res.totalPages = $navigation.find('.thumbnail').length;
+    res.totalIssues = $topbar.find('.item-issues').data('count');
+    res.pages = [];
+    $navigation.find('.thumbnail').each(function() {
+      res.pages.push({
+        number: $(this).data('page'),
+        issues: $(this).data('count'),
+      });
+    });
+  }
+
+  // Log and exit
+  headless.log(JSON.stringify(res));
+  headless.exit();
 }
 
 

@@ -8,12 +8,40 @@ function isDesktop() {
 
 
 /**
+ * Is headless
+ * @return {boolean} Is headless
+ */
+function isHeadless() {
+  if (!isDesktop()) return false;
+  return window.ipcRenderer.sendSync('isHeadless');
+}
+
+
+/**
  * Get file path to open automatically
  * @return {string|null} Path to open
  */
 function getPathToOpen() {
   if (!isDesktop()) return null;
-  return window.ipcRenderer.sendSync('synchronous-message', 'getPathToOpen');
+  return window.ipcRenderer.sendSync('getPathToOpen');
+}
+
+
+/**
+ * Log message
+ * @param  {string}  message Message
+ * @return {boolean}         Success
+ */
+function log(message) {
+  return window.ipcRenderer.sendSync('logMessage', message);
+}
+
+
+/**
+ * Exit app
+ */
+function exit() {
+  window.ipcRenderer.sendSync('exit');
 }
 
 
@@ -22,5 +50,8 @@ function getPathToOpen() {
 
 module.exports = {
   isDesktop: isDesktop,
-  getPathToOpen: getPathToOpen
+  isHeadless: isHeadless,
+  getPathToOpen: getPathToOpen,
+  log: log,
+  exit: exit
 }

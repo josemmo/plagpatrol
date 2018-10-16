@@ -1,7 +1,10 @@
 const {app, BrowserWindow, ipcMain} = require('electron')
 const {autoUpdater} = require('electron-updater')
 const fs = require('fs')
-let win
+let win, args
+
+
+/*** COMMON FUNCTIONS *********************************************************/
 
 
 /**
@@ -19,48 +22,20 @@ function createWindow() {
   win.loadFile('dist/index.html')
 
   // Enable dev tools
-  for (const param of process.argv) {
-    if (param == '--open-dev-tools') {
-      win.webContents.openDevTools()
-      break
-    }
-  }
+  if (args.openDevTools) win.webContents.openDevTools()
 
   // Attach events
   win.on('closed', () => {
     win = null
   })
   win.once('ready-to-show', () => {
-    win.show()
+    if (!args.headless) win.show()
   })
   win.webContents.on('new-window', (e, url) => {
     e.preventDefault()
     shell.openExternal(url)
   })
 }
-
-
-/* INITIALIZE APP */
-app.on('ready', () => {
-  autoUpdater.checkForUpdatesAndNotify()
-  createWindow()
-})
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') { // Keep app running when on MacOS
-    app.quit()
-  }
-})
-app.on('activate', () => {
-  if (win === null) { // Create window when dock icon clicked on MacOS
-    createWindow()
-  }
-})
-
-
-/* HEADLESS OPERATION */
-ipcMain.on('synchronous-message', (e, arg) => {
-  if (arg == 'getPathToOpen') e.returnValue = getPathToOpen()
-})
 
 
 /**
@@ -74,3 +49,47 @@ function getPathToOpen() {
   }
   return null
 }
+
+
+/******************************************************************************/
+
+
+// Parse arguments
+args = {
+  openDevTools: false,
+  headless: false
+}
+for (const param of process.argv.slice(1)) {
+  if (param == '-d' || param == '--open-dev-tools') {
+    args.openDevTools = true
+  } else if (param == '-h' || param == '--headless') {
+    args.headless = true
+  }
+}
+
+// Initialize app
+app.on('ready', () => {
+  if (!args.headless) {
+    autoUpdater.logger = null
+    autoUpdater.checkForUpdatesAndNotify()
+  }
+  createWindow()
+})
+app.on('window-all-closed', () => {
+  app.quit()
+})
+
+// Headless operation
+ipcMain.on('isHeadless', (e) => {
+  e.returnValue = args.headless
+})
+ipcMain.on('getPathToOpen', (e) => {
+  e.returnValue = getPathToOpen()
+})
+ipcMain.on('logMessage', (e, msg) => {
+  console.log(msg)
+  e.returnValue = true
+})
+ipcMain.on('exit', (e) => {
+  win.close()
+})

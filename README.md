@@ -35,6 +35,35 @@ npm install
 npm run build
 ```
 
+## Headless operation
+Plag Patrol can run from a terminal without the need for user interaction.
+
+To analyze a document without prompting any window, use the following command:
+```bash
+plagpatrol path/to/file.pdf --headless
+```
+
+This will return, when finished, a JSON string containing the result of the analysis. For example:
+```json
+{
+	"success": true,
+	"totalPages": 3,
+	"totalIssues": 363,
+	"pages": [{
+		"number": 1,
+		"issues": 146
+	}, {
+		"number": 2,
+		"issues": 136
+	}, {
+		"number": 3,
+		"issues": 81
+	}]
+}
+```
+
+> WARNING: this functionality is experimental and may not work as expected.
+
 ## License
 Plag Patrol is provided under the [MIT license](LICENSE) and is powered by these awesome technologies:
 - [Electron](https://electronjs.org/)
