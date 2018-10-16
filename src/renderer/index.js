@@ -63,6 +63,10 @@ $(function() {
   });
 
 
+  /* DOWNLOAD BUTTON */
+  if (headless.isDesktop()) $topbar.find('.item-download').hide();
+
+
   /* HEADLESS OPERATION */
   var filePath = headless.getPathToOpen();
   if (filePath !== null) viewer.loadDocument(filePath);

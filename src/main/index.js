@@ -1,4 +1,4 @@
-const {app, BrowserWindow, ipcMain} = require('electron')
+const {app, BrowserWindow, ipcMain, shell} = require('electron')
 const {autoUpdater} = require('electron-updater')
 const fs = require('fs')
 let win, args

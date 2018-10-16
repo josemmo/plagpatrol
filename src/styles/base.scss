@@ -41,6 +41,7 @@ body > .topbar {
     background-size: auto 50%;
     border-radius: 6px;
     font-size: 14px;
+    text-decoration: none;
 
     &:first-child {
       margin-left: 0;
@@ -56,6 +57,9 @@ body > .topbar {
 
     &.item-open {
       background-image: url('../assets/open-icon.svg');
+    }
+    &.item-download {
+      background-image: url('../assets/download-icon.svg');
     }
     &.item-issues {
       float: right;
