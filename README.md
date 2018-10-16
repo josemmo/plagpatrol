@@ -7,6 +7,7 @@
 <p align="center">
   <a href="https://travis-ci.com/josemmo/plagpatrol"><img src="https://travis-ci.com/josemmo/plagpatrol.svg?branch=master"></a>
   <a href="https://github.com/josemmo/plagpatrol/releases/latest"><img src="https://img.shields.io/badge/download-latest-10a19b.svg"></a>
+  <a href="https://josemmo.github.io/plagpatrol/"><img src="https://img.shields.io/badge/open-webapp-ec1b0e.svg"></a>
   <a href="LICENSE"><img src="https://img.shields.io/github/license/josemmo/plagpatrol.svg"></a>
 </p>
 
@@ -46,19 +47,23 @@ plagpatrol path/to/file.pdf --headless
 This will return, when finished, a JSON string containing the result of the analysis. For example:
 ```json
 {
-	"success": true,
-	"totalPages": 3,
-	"totalIssues": 363,
-	"pages": [{
-		"number": 1,
-		"issues": 146
-	}, {
-		"number": 2,
-		"issues": 136
-	}, {
-		"number": 3,
-		"issues": 81
-	}]
+  "success": true,
+  "totalPages": 3,
+  "totalIssues": 363,
+  "pages": [
+    {
+      "number": 1,
+      "issues": 146
+    },
+    {
+      "number": 2,
+      "issues": 136
+    },
+    {
+      "number": 3,
+      "issues": 81
+    }
+  ]
 }
 ```
 
