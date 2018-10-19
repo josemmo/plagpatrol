@@ -261,9 +261,10 @@ function analyzeTspan(elem, ctx, flaggedNodes) {
     var code = elem.innerHTML.charCodeAt(i);
     if (code <= 0x03ff) continue;
     if (code >= 0x2000 && code <= 0x2bff) continue; // Punct. signs and others
+    if (code >= 0xd400 && code <= 0xd77f) continue; // Mathematical symbols
     if (code >= 0xe000 && code <= 0xf8ff) continue; // Private use
     if (code >= 0xfb00 && code <= 0xfb4f) continue; // Ligatures
-    console.log('Confusable character found', elem.innerHTML[i]);
+    console.log('Confusable found', '0x' + code.toString(16), elem.innerHTML[i]);
     flagElement(elem, 'Text contains confusable unicode characters', flaggedNodes);
   }
 }
