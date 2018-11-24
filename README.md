@@ -16,7 +16,7 @@
 </p>
 
 ## Introduction
-Plag Patrol is an app for finding suspicious alterations in PDF documents made to bypass certain plagiarism detection tools, such as [Turnitin](https://www.turnitin.com/) and [Compilatio](https://www.compilatio.net/), based on a paper that will be published in the upcoming weeks.
+Plag Patrol is an app for finding suspicious alterations in PDF documents made to bypass certain plagiarism detection tools, such as [Turnitin](https://www.turnitin.com/) and [Compilatio](https://www.compilatio.net/), based on [a paper](https://medium.com/@josemmo/1e827211c3f3) firstly published in the November 2018 number of [Sego-Bit](http://www.inf5g.uva.es/?q=node/692).
 
 Basically, what this app does is highlight all sections of a page **not visible to the naked eye** which will modify the plain text recognized by such tools, thus altering the final plagiarism score of the document.
 
