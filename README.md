@@ -1,5 +1,5 @@
 <h1 align="center">
-  <a href="http://www.amitmerchant.com/electron-markdownify"><img src="build/icons/256x256.png" alt="" width="200"></a><br>
+  <a href="https://josemmo.github.io/plagpatrol/"><img src="build/icons/256x256.png" alt="" width="200"></a><br>
   Plag Patrol<br>
 </h1>
 <h4 align="center">An app for detecting documents tampered to bypass plagiarism detectors</h4>
