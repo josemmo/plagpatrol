@@ -69,6 +69,9 @@ This will return, when finished, a JSON string containing the result of the anal
 
 > WARNING: this functionality is experimental and may not work as expected.
 
+## Demo files
+Inside `demo/` there are multiple sample PDF documents to test against Plag Patrol.
+
 ## License
 Plag Patrol is provided under the [MIT license](LICENSE) and is powered by these awesome technologies:
 - [Electron](https://electronjs.org/)
