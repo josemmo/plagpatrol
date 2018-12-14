@@ -65,23 +65,23 @@
   },
   "devDependencies": {
     "base64-inline-loader": "^1.1.1",
-    "css-loader": "^1.0.0",
-    "electron": "^3.0.4",
-    "electron-builder": "^20.28.4",
+    "css-loader": "^1.0.1",
+    "electron": "^3.0.11",
+    "electron-builder": "^20.38.3",
     "html-webpack-plugin": "^3.2.0",
     "jquery": "^3.3.1",
-    "mini-css-extract-plugin": "^0.4.3",
-    "node-sass": "^4.9.3",
+    "mini-css-extract-plugin": "^0.4.5",
+    "node-sass": "^4.11.0",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
-    "pdfjs-dist": "^2.0.489",
+    "pdfjs-dist": "^2.0.943",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "uglifyjs-webpack-plugin": "^2.0.1",
-    "webpack": "^4.20.2",
+    "webpack": "^4.27.1",
     "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.9"
+    "webpack-dev-server": "^3.1.10"
   },
   "dependencies": {
-    "electron-updater": "^3.1.2"
+    "electron-updater": "^4.0.0"
   }
 }
