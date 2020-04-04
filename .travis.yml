@@ -45,9 +45,9 @@ deploy:
     on:
       tags: true
   - provider: pages
-    skip-cleanup: true
-    github-token: $GH_TOKEN
-    local-dir: dist
+    skip_cleanup: true
+    github_token: $GH_TOKEN
+    local_dir: dist
     on:
       tags: true
       condition: $TRAVIS_OS_NAME = linux
