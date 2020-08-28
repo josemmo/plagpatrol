@@ -66,22 +66,22 @@
   "devDependencies": {
     "base64-inline-loader": "^1.1.1",
     "css-loader": "^1.0.1",
-    "electron": "^7.2.4",
+    "electron": "^7.3.3",
     "electron-builder": "^20.44.4",
     "html-webpack-plugin": "^3.2.0",
-    "jquery": "^3.5.0",
+    "jquery": "^3.5.1",
     "mini-css-extract-plugin": "^0.4.5",
-    "node-sass": "^4.13.1",
+    "node-sass": "^4.14",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "pdfjs-dist": "2.0.550",
     "sass-loader": "^7.3.1",
     "style-loader": "^0.23.1",
-    "terser-webpack-plugin": "^2.3.5",
-    "webpack": "^4.42.1",
-    "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.10.3"
+    "terser-webpack-plugin": "^2.3.8",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
-    "electron-updater": "^4.2.5"
+    "electron-updater": "^4.3.4"
   }
 }
