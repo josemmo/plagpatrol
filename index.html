@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Plag Patrol</title>
+  <link href="app.min.css" rel="stylesheet"></head>
+  <body>
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <a class="item item-open">Open file&hellip;</a>
+      <a href="https://github.com/josemmo/plagpatrol/releases/latest" target="_blank" class="item item-download">Download desktop app</a>
+      <a class="item item-about">About</a>
+      <span class="item item-issues"></span>
+    </div>
+
+    <!-- PAGINATION -->
+    <div class="pagination">
+      <div class="page centered visible" data-page="welcome">
+        <div class="lead">Drag and drop a PDF to analyze it</div>
+        <input type="file" class="filepicker" accept="application/pdf">
+      </div>
+      <div class="page centered" data-page="loading">
+        <div class="lead">
+          Document is being analyzed, please wait...
+          <div class="progress"><div></div></div>
+        </div>
+      </div>
+      <div class="page" data-page="viewer">
+        <div class="navigation"></div>
+        <div class="preview"></div>
+      </div>
+    </div>
+
+    <!-- DIALOGS -->
+    <div class="dialogs"></div>
+
+    <!-- DOM LOADER -->
+    <div class="dom-loader"></div>
+
+    <!-- ELECTRON SCRIPTS -->
+    <script>if (typeof require == 'function') var ipcRenderer = require('electron').ipcRenderer;</script>
+  <script type="text/javascript" src="app.min.js"></script></body>
+</html>
