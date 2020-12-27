@@ -112,7 +112,7 @@ function prepareDom(pages) {
   var navHtml = '', previewHtml = '';
   for (var i=1; i<=pages; i++) {
     navHtml += '<a class="thumbnail" data-page="' + i + '"><canvas /></a>';
-    previewHtml += '<div class="page" data-page="' + i + '" />';
+    previewHtml += '<div class="page" data-page="' + i + '"></div>';
   }
   $navigation.html(navHtml);
   $navigation.find('[data-page=1]').addClass('selected');
