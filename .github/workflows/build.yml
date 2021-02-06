@@ -28,6 +28,10 @@ jobs:
         with:
           node-version: '15'
 
+      # Build webapp
+      - name: Build webapp
+        run: npm install && npm run build:web
+
       # Build and release app
       - name: Build and release app
         uses: samuelmeuli/action-electron-builder@v1
