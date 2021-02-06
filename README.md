@@ -5,7 +5,7 @@
 <h4 align="center">An app for detecting documents tampered to bypass plagiarism detectors</h4>
 
 <p align="center">
-  <a href="https://travis-ci.com/josemmo/plagpatrol"><img src="https://travis-ci.com/josemmo/plagpatrol.svg?branch=master"></a>
+  <a href="https://github.com/josemmo/plagpatrol/actions"><img src="https://github.com/josemmo/plagpatrol/workflows/Build/badge.svg"></a>
   <a href="https://github.com/josemmo/plagpatrol/releases/latest"><img src="https://img.shields.io/badge/download-latest-10a19b.svg"></a>
   <a href="https://josemmo.github.io/plagpatrol/"><img src="https://img.shields.io/badge/open-webapp-ec1b0e.svg"></a>
   <a href="LICENSE"><img src="https://img.shields.io/github/license/josemmo/plagpatrol.svg"></a>
