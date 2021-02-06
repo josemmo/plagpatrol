@@ -1,6 +1,6 @@
 {
   "name": "plagpatrol",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "An app for detecting documents tampered to bypass plagiarism detectors",
   "author": "José Miguel Moreno <josemmo@pm.me>",
   "repository": "https://github.com/josemmo/plagpatrol",
