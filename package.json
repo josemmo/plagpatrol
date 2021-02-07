@@ -9,7 +9,7 @@
   "scripts": {
     "build": "npm run build:web && npm run build:desktop",
     "build:web": "webpack --mode=production",
-    "build:desktop": "electron-builder",
+    "build:desktop": "electron-builder --publish never",
     "start": "npm run build:web && npm run start:desktop",
     "start:web": "webpack-dev-server --mode=development",
     "start:desktop": "electron . --open-dev-tools"
