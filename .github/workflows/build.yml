@@ -29,20 +29,25 @@ jobs:
         with:
           node-version: '15'
 
-      # Build webapp
-      - name: Build webapp
-        run: npm install && npm run build:web
+      # Build app
+      - name: Build web and desktop apps
+        run: npm install && npm run build
 
-      # Build and release app
-      - name: Build and release app
-        uses: samuelmeuli/action-electron-builder@v1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          skip_build: true
-          release: ${{ startsWith(github.ref, 'refs/tags/') }}
+      # Release desktop app
+      - name: Release desktop app
+        if: ${{ startsWith(github.ref, 'refs/tags/') }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          for f in build/plagpatrol-*; do
+            echo "Uploading $f ..."
+            gh release upload ${GITHUB_REF##*/} "$f"
+          done
+          echo "Uploading YAML manifest ..."
+          gh release upload ${GITHUB_REF##*/} build/latest*.yml
 
-      # Release webapp
-      - name: Release webapp
+      # Release web app
+      - name: Release web app
         if: ${{ success() && matrix.os == 'ubuntu-latest' }}
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
